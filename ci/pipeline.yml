@@ -1,13 +1,10 @@
 ---
 resources:
-- name: dockerfile
+- name: docker-repo
   type: git
   source:
     uri: https://github.com/EngineerBetter/cf-terraform-image
     branch: master
-    paths:
-    - Dockerfile
-    - .terraformrc
 
 - name: terraform-provider-cloudfoundry
   type: github-release
@@ -32,7 +29,7 @@ jobs:
 - name: build-image
   plan:
   - aggregate:
-    - get: dockerfile
+    - get: docker-repo
       trigger: true
     - get: terraform-provider-cloudfoundry
       trigger: true
@@ -44,21 +41,22 @@ jobs:
   - task: prepare-files
     image: terraform-docker-image
     config:
-        platform: linux
-        inputs:
-        - name: dockerfile
-        - name: terraform-provider-cloudfoundry
-        outputs:
-        - name: docker
-        run:
-          path: sh
-          args:
-            - -xeuc
-            - |
-              mkdir -p docker
-              mv dockerfile/Dockerfile docker/
-              mv dockerfile/.terraformrc docker/
-              mv terraform-provider-cloudfoundry/terraform-provider-cloudfoundry_*_linux_amd64 docker/terraform-provider-cloudfoundry
+      platform: linux
+      inputs:
+      - name: docker-repo
+      - name: terraform-provider-cloudfoundry
+      outputs:
+      - name: docker
+      run:
+        path: sh
+        args:
+          - -xeuc
+          - |
+            mkdir -p docker
+            mv docker-repo/Dockerfile docker/
+            mv docker-repo/.terraformrc docker/
+            mv docker-repo/verify_image.sh docker/
+            mv terraform-provider-cloudfoundry/terraform-provider-cloudfoundry_*_linux_amd64 docker/terraform-provider-cloudfoundry
   - put: cf-terraform-image-dockerhub
     params:
       build: docker
