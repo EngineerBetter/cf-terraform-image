@@ -5,6 +5,8 @@ resources:
   source:
     uri: https://github.com/EngineerBetter/cf-terraform-image
     branch: master
+    ignore_paths:
+    - ci/version
 
 - name: terraform-provider-cloudfoundry
   type: github-release
@@ -25,8 +27,18 @@ resources:
   source:
     repository: ljfranklin/terraform-resource
 
+- name: version
+  type: semver
+  source:
+    driver: git
+    uri: git@github.com:EngineerBetter/cf-terraform-image.git
+    branch: master
+    file: ci/version
+    private_key: ((version_deploy_key))
+
 jobs:
 - name: build-image
+  serial: true
   plan:
   - aggregate:
     - get: docker-repo
@@ -38,6 +50,7 @@ jobs:
         - terraform-provider-cloudfoundry_*_linux_amd64
     - get: terraform-docker-image
       trigger: true
+    - get: version
   - task: prepare-files
     image: terraform-docker-image
     config:
@@ -54,7 +67,13 @@ jobs:
           - |
             mkdir -p docker
             mv docker-repo/assets/* docker/
+            mv docker-repo/assets/.terraformrc docker/
             mv terraform-provider-cloudfoundry/terraform-provider-cloudfoundry_*_linux_amd64 docker/terraform-provider-cloudfoundry
   - put: cf-terraform-image-dockerhub
     params:
       build: docker
+      tag: version/version
+      tag_as_latest: true
+  - put: version
+    params:
+      bump: patch
