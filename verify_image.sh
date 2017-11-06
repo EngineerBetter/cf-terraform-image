@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -eu
+
 echo "Checking that correct config files have been placed"
 stat -t ~/.terraformrc
 stat -t ~/.terraform.d/providers/linux_amd64/terraform-provider-cloudfoundry-*
