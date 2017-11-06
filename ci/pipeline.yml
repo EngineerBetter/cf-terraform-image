@@ -5,6 +5,8 @@ resources:
   source:
     uri: https://github.com/EngineerBetter/cf-terraform-image
     branch: master
+    paths:
+    - assets
     ignore_paths:
     - ci/version
 
