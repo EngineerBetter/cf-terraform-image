@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -eux
+set -eu
 
 echo "Checking that correct config files have been placed"
 stat -t ~/.terraformrc
@@ -8,7 +8,7 @@ stat -t ~/.terraform.d/providers/linux_amd64/terraform-provider-cloudfoundry
 
 mkdir -p tmp-test-dir
 cd tmp-test-dir || exit
-cat << EOF > config.tf
+cat << 'EOF' > config.tf
 provider "cloudfoundry" {
   api_endpoint = "https://api.local.pcfdev.io"
   username = "admin"
