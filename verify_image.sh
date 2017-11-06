@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -eu
+set -eux
 
 echo "Checking that correct config files have been placed"
 stat -t ~/.terraformrc
@@ -32,6 +32,8 @@ resource "cloudfoundry_service" "uaa-db" {
   plan = "512mb"
 }
 EOF
+
+cat config.tf
 
 echo "Checking that terraform init succeeds"
 terraform init
