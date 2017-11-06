@@ -51,6 +51,8 @@ jobs:
     - get: terraform-docker-image
       trigger: true
     - get: version
+      params:
+        bump: patch
   - task: prepare-files
     image: terraform-docker-image
     config:
