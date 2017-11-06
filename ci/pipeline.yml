@@ -53,9 +53,7 @@ jobs:
           - -xeuc
           - |
             mkdir -p docker
-            mv docker-repo/Dockerfile docker/
-            mv docker-repo/.terraformrc docker/
-            mv docker-repo/verify_image.sh docker/
+            mv docker-repo/assets/* docker/
             mv terraform-provider-cloudfoundry/terraform-provider-cloudfoundry_*_linux_amd64 docker/terraform-provider-cloudfoundry
   - put: cf-terraform-image-dockerhub
     params:
