@@ -33,8 +33,6 @@ resource "cloudfoundry_service" "uaa-db" {
 }
 EOF
 
-cat config.tf
-
 echo "Checking that terraform init succeeds"
 terraform init
 
