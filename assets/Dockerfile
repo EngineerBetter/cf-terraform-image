@@ -13,4 +13,4 @@ COPY verify_image.sh /tmp/verify_image.sh
 RUN /tmp/verify_image.sh && rm /tmp/verify_image.sh
 
 # debug
-RUN echo "whoami && pwd && ls -la ~" > /opt/resource/out
+RUN echo "#!/bin/sh\nwhoami && pwd && ls -la ~" > /opt/resource/out
