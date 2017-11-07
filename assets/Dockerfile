@@ -11,7 +11,3 @@ ADD .terraformrc /root/
 # Verify image
 COPY verify_image.sh /tmp/verify_image.sh
 RUN /tmp/verify_image.sh && rm /tmp/verify_image.sh
-
-# debug
-RUN echo "#!/bin/sh" > /opt/resource/out
-RUN echo "whoami && pwd && ls -la ~" >> /opt/resource/out
