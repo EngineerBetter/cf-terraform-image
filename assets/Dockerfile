@@ -1,5 +1,10 @@
 FROM ljfranklin/terraform-resource
 
+# The terraform resource doesn't set HOME by default but
+# third party providers need to be able to find .terraformrc
+# in ~
+ENV HOME /root
+
 RUN mkdir -p /root/.terraform.d/providers/linux_amd64/
 
 COPY terraform-provider-cloudfoundry /root/.terraform.d/providers/linux_amd64/terraform-provider-cloudfoundry
