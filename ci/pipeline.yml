@@ -1,10 +1,10 @@
 ---
 resource_types:
-- name: slack-notification
-  type: docker-image
-  source:
-    repository: cfcommunity/slack-notification-resource
-    tag: latest
+# - name: slack-notification
+#   type: docker-image
+#   source:
+#     repository: cfcommunity/slack-notification-resource
+#     tag: latest
 
 resources:
 - name: docker-repo
@@ -36,14 +36,14 @@ resources:
   source:
     repository: ljfranklin/terraform-resource
 
-- name: version
-  type: semver
-  source:
-    driver: git
-    uri: git@github.com:EngineerBetter/cf-terraform-image.git
-    branch: master
-    file: ci/version
-    private_key: ((version_deploy_key))
+# - name: version
+#   type: semver
+#   source:
+#     driver: git
+#     uri: git@github.com:EngineerBetter/cf-terraform-image.git
+#     branch: master
+#     file: ci/version
+#     private_key: ((version_deploy_key))
 
 - name: slack-alert
   type: slack-notification
@@ -64,9 +64,9 @@ jobs:
         - terraform-provider-cloudfoundry_*_linux_amd64
     - get: terraform-docker-image
       trigger: true
-    - get: version
-      params:
-        bump: patch
+    # - get: version
+    #   params:
+    #     bump: patch
   - task: prepare-files
     image: terraform-docker-image
     config:
@@ -88,14 +88,14 @@ jobs:
   - put: cf-terraform-image-dockerhub
     params:
       build: docker
-      tag: version/version
-      tag_as_latest: true
-  - put: version
-    params:
-      bump: patch
-  - put: slack-alert
-    params:
-      channel: "#integrations"
-      text: |
-        Version v${TEXT_FILE_CONTENT} of the cf-terraform-image has been pushed to dockerhub!
-      text_file: version/version
+      tag: debug
+      tag_as_latest: false
+  # - put: version
+  #   params:
+  #     bump: patch
+  # - put: slack-alert
+  #   params:
+  #     channel: "#integrations"
+  #     text: |
+  #       Version v${TEXT_FILE_CONTENT} of the cf-terraform-image has been pushed to dockerhub!
+  #     text_file: version/version

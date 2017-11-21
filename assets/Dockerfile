@@ -1,4 +1,4 @@
-FROM ljfranklin/terraform-resource
+FROM engineerbetter/terraform-resource-debug
 
 # The terraform resource doesn't set HOME by default but
 # third party providers need to be able to find .terraformrc
