@@ -1,5 +1,5 @@
 ---
-resource_types:
+# resource_types:
 # - name: slack-notification
 #   type: docker-image
 #   source:
@@ -11,7 +11,7 @@ resources:
   type: git
   source:
     uri: https://github.com/EngineerBetter/cf-terraform-image
-    branch: master
+    branch: debug
     paths:
     - assets
     ignore_paths:
@@ -27,7 +27,7 @@ resources:
 - name: cf-terraform-image-dockerhub
   type: docker-image
   source:
-    repository: engineerbetter/cf-terraform-image
+    repository: engineerbetter/cf-terraform-image-debug
     username: ((docker_username))
     password: ((docker_password))
 
@@ -45,10 +45,10 @@ resources:
 #     file: ci/version
 #     private_key: ((version_deploy_key))
 
-- name: slack-alert
-  type: slack-notification
-  source:
-    url: ((slack_webhook))
+# - name: slack-alert
+#   type: slack-notification
+#   source:
+#     url: ((slack_webhook))
 
 jobs:
 - name: build-image
@@ -88,7 +88,6 @@ jobs:
   - put: cf-terraform-image-dockerhub
     params:
       build: docker
-      tag: debug
       tag_as_latest: false
   # - put: version
   #   params:
