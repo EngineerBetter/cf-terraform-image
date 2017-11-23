@@ -3,7 +3,7 @@ FROM engineerbetter/terraform-resource-debug
 # The terraform resource doesn't set HOME by default but
 # third party providers need to be able to find .terraformrc
 # in ~
-ENV HOME /root
+ENV TF_VAR_HOME /root
 
 RUN mkdir -p /root/.terraform.d/providers/linux_amd64/
 
