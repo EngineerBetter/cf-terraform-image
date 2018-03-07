@@ -9,7 +9,7 @@ stat -t ~/.terraform.d/providers/linux_amd64/terraform-provider-cloudfoundry
 mkdir -p tmp-test-dir
 cd tmp-test-dir || exit
 cat << 'EOF' > config.tf
-provider "cloudfoundry" {
+provider "cf" {
   api_endpoint = "https://api.local.pcfdev.io"
   username = "admin"
   password = "admin"

@@ -20,8 +20,8 @@ resources:
 - name: terraform-provider-cloudfoundry
   type: github-release
   source:
-    owner: orange-cloudfoundry
-    repository: terraform-provider-cloudfoundry
+    owner: mevansam
+    repository: terraform-provider-cf
     access_token: ((api_token))
 
 - name: cf-terraform-image-dockerhub
@@ -61,7 +61,7 @@ jobs:
       trigger: true
       params:
         globs:
-        - terraform-provider-cloudfoundry_*_linux_amd64
+        - terraform-provider-cf_linux_amd64
     - get: terraform-docker-image
       trigger: true
     - get: version
@@ -84,7 +84,7 @@ jobs:
             mkdir -p docker
             mv docker-repo/assets/* docker/
             mv docker-repo/assets/.terraformrc docker/
-            mv terraform-provider-cloudfoundry/terraform-provider-cloudfoundry_*_linux_amd64 docker/terraform-provider-cloudfoundry
+            mv terraform-provider-cloudfoundry/terraform-provider-cf_linux_amd64 docker/terraform-provider-cf
   - put: cf-terraform-image-dockerhub
     params:
       build: docker

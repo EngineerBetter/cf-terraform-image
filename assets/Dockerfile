@@ -2,9 +2,9 @@ FROM ljfranklin/terraform-resource
 
 RUN mkdir -p /root/.terraform.d/providers/linux_amd64/
 
-COPY terraform-provider-cloudfoundry /root/.terraform.d/providers/linux_amd64/terraform-provider-cloudfoundry
+COPY terraform-provider-cf /root/.terraform.d/providers/linux_amd64/terraform-provider-cf
 
-RUN chmod +x /root/.terraform.d/providers/linux_amd64/terraform-provider-cloudfoundry
+RUN chmod +x /root/.terraform.d/providers/linux_amd64/terraform-provider-cf
 
 ADD .terraformrc /root/
 
