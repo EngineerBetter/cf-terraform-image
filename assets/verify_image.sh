@@ -4,7 +4,7 @@ set -eu
 
 echo "Checking that correct config files have been placed"
 stat -t ~/.terraformrc
-stat -t ~/.terraform.d/providers/linux_amd64/terraform-provider-cf
+stat -t ~/.terraform.d/plugins/linux_amd64/terraform-provider-cf
 
 mkdir -p tmp-test-dir
 cd tmp-test-dir || exit
