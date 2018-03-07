@@ -17,7 +17,7 @@ resources:
     ignore_paths:
     - ci/version
 
-- name: terraform-provider-cloudfoundry
+- name: terraform-provider-cf
   type: github-release
   source:
     owner: mevansam
@@ -57,7 +57,7 @@ jobs:
   - aggregate:
     - get: docker-repo
       trigger: true
-    - get: terraform-provider-cloudfoundry
+    - get: terraform-provider-cf
       trigger: true
       params:
         globs:
@@ -73,7 +73,7 @@ jobs:
       platform: linux
       inputs:
       - name: docker-repo
-      - name: terraform-provider-cloudfoundry
+      - name: terraform-provider-cf
       outputs:
       - name: docker
       run:
@@ -84,7 +84,7 @@ jobs:
             mkdir -p docker
             mv docker-repo/assets/* docker/
             mv docker-repo/assets/.terraformrc docker/
-            mv terraform-provider-cloudfoundry/terraform-provider-cf_linux_amd64 docker/terraform-provider-cf
+            mv terraform-provider-cf/terraform-provider-cf_linux_amd64 docker/terraform-provider-cf
   - put: cf-terraform-image-dockerhub
     params:
       build: docker
