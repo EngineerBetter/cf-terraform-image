@@ -1,6 +1,6 @@
 # CF Terraform Image
 
-A pipeline and Dockerfile for adding the necessary files to the [Concourse terraform-resource](https://github.com/ljfranklin/terraform-resource) for the [Cloud Foundry terraform provider](https://github.com/orange-cloudfoundry/terraform-provider-cloudfoundry) to work out of the box.
+A pipeline and Dockerfile for adding the necessary files to the [Concourse terraform-resource](https://github.com/ljfranklin/terraform-resource) for the [Cloud Foundry terraform provider](https://github.com/mevansam/terraform-provider-cf) to work out of the box.
 
 The image is maintained by a Concourse pipeline and will update on new releases of both the Concourse terraform resource and of the CF terraform provider.
 
@@ -47,3 +47,14 @@ jobs:
 ```
 
 *Note:* The `HOME` environment variable in the resource source is required because the image for this resource keeps its `.terraformrc` in `/root` and terraform looks for it in `~`. By default the standard terraform resource does not set a specific value for `$HOME` and environment values defined in the docker image are not passed to terraform in the same way as variables provided through the resource source.
+
+### Example provider block
+
+```hcl
+provider "cf" {
+  api_endpoint = "https://api.local.pcfdev.io"
+  username = "admin"
+  password = "admin"
+  skip_ssl_validation = true
+}
+```
