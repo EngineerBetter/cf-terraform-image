@@ -22,7 +22,7 @@ resources:
   source:
     owner: mevansam
     repository: terraform-provider-cf
-    access_token: ((api_token))
+    access_token: ((github_access_token))
 
 - name: cf-terraform-image-dockerhub
   type: docker-image
@@ -43,7 +43,7 @@ resources:
     uri: git@github.com:EngineerBetter/cf-terraform-image.git
     branch: master
     file: ci/version
-    private_key: ((version_deploy_key))
+    private_key: ((version_deploy_key.private_key))
 
 - name: slack-alert
   type: slack-notification
