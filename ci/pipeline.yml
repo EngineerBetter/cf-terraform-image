@@ -28,7 +28,7 @@ resources:
   type: docker-image
   source:
     repository: engineerbetter/cf-terraform-image
-    username: ((docker_username))
+    username: ((docker_user))
     password: ((docker_password))
 
 - name: terraform-docker-image
